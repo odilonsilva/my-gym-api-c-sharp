@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //custom services
-builder.Services.AddDbContext<ExerciseContext>(ctx => ctx.UseSqlite("Data source=DB/exercises.db"));
+builder.Services.AddDbContext<api.Repositories.ApiContext>(ctx => ctx.UseSqlite("Data source=DB/exercises.db"));
 
 //scopes
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();

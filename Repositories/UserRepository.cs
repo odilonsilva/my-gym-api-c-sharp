@@ -5,9 +5,9 @@ namespace api.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly ExerciseContext _context;
+        private readonly ApiContext _context;
 
-        public UserRepository(ExerciseContext context)
+        public UserRepository(ApiContext context)
         {
             _context = context;
         }

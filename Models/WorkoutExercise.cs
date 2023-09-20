@@ -1,6 +1,6 @@
 ﻿namespace api.Models
 {
-    public class WorkoutExercises
+    public class WorkoutExercise
     {
         public int Id { get; set; }
         public int WorkoutId { get; set; }

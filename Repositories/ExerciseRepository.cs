@@ -5,9 +5,9 @@ namespace api.Repositories
 {
     public class ExerciseRepository : IExerciseRepository
     {
-        private readonly ExerciseContext _context;
+        private readonly ApiContext _context;
 
-        public ExerciseRepository(ExerciseContext context)
+        public ExerciseRepository(ApiContext context)
         {
             _context = context;
         }
