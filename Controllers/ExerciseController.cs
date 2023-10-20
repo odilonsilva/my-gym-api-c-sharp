@@ -9,19 +9,24 @@ namespace api.Controllers
     public class ExerciseController : ControllerBase
     {
         private readonly IExerciseRepository _repository;
+
+        private readonly ApiContext _context;
       
         private readonly ILogger<ExerciseController> _logger;
 
-        public ExerciseController(ILogger<ExerciseController> logger, IExerciseRepository repository)
+        public ExerciseController(ILogger<ExerciseController> logger, IExerciseRepository repository, ApiContext context)
         {
             _logger = logger;
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _context = context;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Exercise>> List()
+        public async Task<ActionResult<IEnumerable<Exercise>>> List(int CurrentPage = 1, int PerPage = 5)
         {
-            return await _repository.List();
+            var result = await PageList<Exercise>.Paginate(_context.Exercises, CurrentPage, PerPage);
+            
+            return result;
         }
 
         [HttpGet("{id}")]

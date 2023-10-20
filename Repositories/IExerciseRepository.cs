@@ -14,5 +14,7 @@ namespace api.Repositories
 
         Task<bool> Delete(int id);
 
+        int Count();
+
     }
 }

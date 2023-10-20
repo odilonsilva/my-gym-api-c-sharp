@@ -31,7 +31,7 @@ namespace api.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    Category = table.Column<string>(type: "TEXT", nullable: false),
+                    CategoryId = table.Column<int>(type: "TEXT", nullable: false),
                     Image = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

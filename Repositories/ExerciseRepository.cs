@@ -51,5 +51,9 @@ namespace api.Repositories
             return false;
         }
 
+        public int Count()
+        {
+          return _context.Exercises.AsSingleQuery().Count();
+        }
     }
 }

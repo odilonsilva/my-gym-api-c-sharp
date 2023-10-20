@@ -1,7 +1,9 @@
 using api.Repositories;
+using api.Seed;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "apiMyGym";
 
 // Add services to the container.
 
@@ -11,11 +13,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //custom services
-builder.Services.AddDbContext<api.Repositories.ApiContext>(ctx => ctx.UseSqlite("Data source=DB/exercises.db"));
+builder.Services.AddDbContext<ApiContext>(ctx => ctx.UseSqlite("Data source=DB/exercises.db"));
 
 //scopes
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+//cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("*");
+        });
+});
 
 var app = builder.Build();
 
@@ -26,10 +39,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+AppDBInitializer.Seed(app);
 
 app.Run();
